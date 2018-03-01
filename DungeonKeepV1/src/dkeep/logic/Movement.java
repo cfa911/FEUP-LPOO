@@ -85,12 +85,11 @@ public class Movement {
 				{
 					map[Y][X] = hero.previous;
 					hero.previous = map[++Y][X];
-					map[Y][X]= hero.ch;
-					hero.previous = ' ';
+					map[Y][X]= 'K';
+					hero.previous = 'k';
 					doorToExit(map);
 				}
 				else {
-					hero.previous = ' ';
 					map[Y][X] = hero.previous;
 					hero.previous = map[++Y][X];
 					map[Y][X]= hero.ch;
@@ -105,11 +104,10 @@ public class Movement {
 					map[Y][X] = hero.previous;
 					hero.previous = map[--Y][X];
 					map[Y][X]= hero.ch;
-					hero.previous = ' ';
+					hero.previous = 'k';
 					doorToExit(map);
 				}
 				else {
-					hero.previous = ' ';
 					map[Y][X] = hero.previous;
 					hero.previous = map[--Y][X];
 					map[Y][X]= hero.ch;
@@ -184,19 +182,11 @@ public class Movement {
 				{
 					map[Y][X] = ogre.previous;
 					ogre.previous = map[Y][--X];
-					map[Y][X]= ogre.ch;
-					ogre.previous = ' ';
+					map[Y][X]= '$';
+					ogre.previous = 'k';
 					
 				}
-				else if(map[Y][X-1] == exit)
-				{
-					ogre.previous = ' ';
-					map[Y][X] = ogre.previous;
-					ogre.previous = map[Y][--X];
-					map[Y][X]= ogre.ch;
-				}
 				else {				
-					ogre.previous = ' ';
 					map[Y][X] = ogre.previous;
 					ogre.previous = map[Y][--X];
 					map[Y][X]= ogre.ch;
@@ -210,12 +200,11 @@ public class Movement {
 				{
 					map[Y][X] = ogre.previous;
 					ogre.previous = map[Y][++X];
-					map[Y][X]= ogre.ch;
-					ogre.previous = ' ';
+					map[Y][X]= '$';
+					ogre.previous = 'k';
 					
 				}
 				else {
-					ogre.previous = ' ';
 					map[Y][X] = ogre.previous;
 					ogre.previous = map[Y][++X];
 					map[Y][X]= ogre.ch;
@@ -230,12 +219,11 @@ public class Movement {
 				{
 					map[Y][X] = ogre.previous;
 					ogre.previous = map[++Y][X];
-					map[Y][X]= ogre.ch;
-					ogre.previous = ' ';
+					map[Y][X]= '$';
+					ogre.previous = 'k';
 					
 				}
 				else {
-					ogre.previous = ' ';
 					map[Y][X] = ogre.previous;
 					ogre.previous = map[++Y][X];
 					map[Y][X]= ogre.ch;
@@ -249,12 +237,11 @@ public class Movement {
 				{
 					map[Y][X] = ogre.previous;
 					ogre.previous = map[--Y][X];
-					map[Y][X]= ogre.ch;
+					map[Y][X]= '$';
 					ogre.previous = 'k';
 					
 				}
 				else {
-					ogre.previous = ' ';
 					map[Y][X] = ogre.previous;
 					ogre.previous = map[--Y][X];
 					map[Y][X]= ogre.ch;

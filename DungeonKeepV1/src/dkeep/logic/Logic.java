@@ -1,4 +1,5 @@
 package dkeep.logic;
+import java.util.Random;
 
 public class Logic {
 	public static int[] findChar(char[][] map,char character){
@@ -29,8 +30,31 @@ public class Logic {
 			return false;
 		else if(h.X == enemy.X && h.Y == enemy.Y+1)
 			return false;
+		else if(h.X == enemy.X && h.Y == enemy.Y)
+			return false;
 		else
 			return true;
 	}
-
+	public static String randomDirection() {
+		String direction = " ";
+		Random rand = new Random();
+		int choice = rand.nextInt(4 - 1 + 1) + 1; // Random number from [1,4]
+		switch(choice)
+		{
+			case 1:
+				direction = "left";
+				break;
+			case 2:
+				direction = "up";
+				break;
+			case 3:
+				direction = "down";
+				break;
+			case 4:
+				direction = "right";
+				break;
+			default:
+		}
+		return direction;
+	}
 }

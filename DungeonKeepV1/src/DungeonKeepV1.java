@@ -56,7 +56,7 @@ public class DungeonKeepV1 {
 		while(win) 
 		{
 			map2 = Movement.moveHero(map2 ,h , Commons.inputHero());
-			//map2 = Movement.moveOgre(map2 ,o);
+			map2 = Movement.moveOgre(map2 ,o, Logic.randomDirection());
 			Commons.printMap(map2);
 			win = Logic.checkCollison(h, o);
 			if(h.previous == 'S') //Wall check

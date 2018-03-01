@@ -2,18 +2,6 @@
 import dkeep.cli.*;
 import dkeep.logic.*;
 public class DungeonKeepV1 {
-	public static char previous = ' ';
-	public static char[][] mapa2 = {
-			{'X','X','X','X','X','X','X','X','X'},
-			{'I',' ',' ',' ','O',' ',' ','k','X'},
-			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-			{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-			{'X','H',' ',' ',' ',' ',' ',' ','X'},
-			{'X','X','X','X','X','X','X','X','X'}};
-	
 	public static boolean firstMap()
 	{
 		boolean win=true;

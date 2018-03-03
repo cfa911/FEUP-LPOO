@@ -23,7 +23,7 @@ public class DungeonKeepV1 {
 		Commons.printMap(map1);
 		while(win) 
 		{
-			map1 = Movement.moveHero(map1 ,h , Commons.inputHero());
+			map1 = Movement.moveHero(map1 ,h , Commons.inputHero(),0);
 			map1 = Movement.moveGuard(map1 ,g);
 			Commons.printMap(map1);
 			win = Logic.checkCollison(h, g);
@@ -55,8 +55,9 @@ public class DungeonKeepV1 {
 		Commons.printMap(map2);
 		while(win) 
 		{
-			map2 = Movement.moveHero(map2 ,h , Commons.inputHero());
+			map2 = Movement.moveHero(map2 ,h , Commons.inputHero(),1);
 			map2 = Movement.moveOgre(map2 ,o, Logic.randomDirection());
+			map2 = Movement.moveClub(map2 ,o, Logic.randomDirection());
 			Commons.printMap(map2);
 			win = Logic.checkCollison(h, o);
 			if(h.previous == 'S') //Wall check

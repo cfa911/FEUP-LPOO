@@ -27,21 +27,29 @@ public class Movement {
 		return map;
 	}
 	
-	public static char[][] moveHero(char[][] map,Hero hero,String direction) {
+	public static char[][] moveHero(char[][] map,Hero hero,String direction,int mode) {
 		int Y = hero.Y;
 		int X = hero.X;
 		switch(direction) {
 			case "left":
-				if(map[Y][X-1] == wall || map[Y][X-1] == door || X-1 < 0) {
+				if(map[Y][X-1] == wall  || X-1 < 0) {
 				
 				}
-				else if(map[Y][X-1] == lever)
+				else if(map[Y][X-1] == lever && mode == 0)
 				{
 					map[Y][X] = hero.previous;
 					hero.previous = map[Y][--X];
 					map[Y][X]= hero.ch;
-					hero.previous = ' ';
+					hero.previous = 'k';
 					doorToExit(map);
+				}
+				else if(map[Y][X-1] == lever && mode == 1)
+				{
+					map[Y][X] = hero.previous;
+					hero.previous = map[Y][--X];
+					map[Y][X]= 'K';
+					hero.ch= 'K';
+					hero.previous = ' ';
 				}
 				else if(map[Y][X-1] == exit)
 				{
@@ -50,27 +58,47 @@ public class Movement {
 					hero.previous = map[Y][--X];
 					map[Y][X]= hero.ch;
 				}
+				else if(map[Y][X-1] == door && hero.ch == 'K') {
+					map[Y][X-1] = 'S';
+				}
 				else {				
-					hero.previous = ' ';
 					map[Y][X] = hero.previous;
 					hero.previous = map[Y][--X];
 					map[Y][X]= hero.ch;
 				}
+				
 				break;
 			case "right":
 				if(map[Y][X+1] == wall || map[Y][X+1] == door || X+1 < 0) {
 					
 				}
-				else if(map[Y][X+1] == lever)
+				else if(map[Y][X+1] == lever && mode == 0)
 				{
 					map[Y][X] = hero.previous;
 					hero.previous = map[Y][++X];
 					map[Y][X]= hero.ch;
-					hero.previous = ' ';
+					hero.previous = 'k';
 					doorToExit(map);
 				}
-				else {
+				else if(map[Y][X+1] == lever && mode == 1)
+				{
+					map[Y][X] = hero.previous;
+					hero.previous = map[Y][++X];
+					map[Y][X]= 'K';
+					hero.ch= 'K';
 					hero.previous = ' ';
+				}
+				else if(map[Y][X+1] == exit)
+				{
+					hero.previous = ' ';
+					map[Y][X] = hero.previous;
+					hero.previous = map[Y][++X];
+					map[Y][X]= hero.ch;
+				}
+				else if(map[Y][X+1] == door && hero.ch == 'K') {
+					map[Y][X+1] = 'S';
+				}
+				else {
 					map[Y][X] = hero.previous;
 					hero.previous = map[Y][++X];
 					map[Y][X]= hero.ch;
@@ -81,13 +109,31 @@ public class Movement {
 				if(map[Y+1][X] == wall || map[Y+1][X] == door || Y+1 < 0) {
 					
 				}
-				else if(map[Y+1][X] == lever)
+				else if(map[Y+1][X] == lever && mode == 0)
+				{
+					map[Y][X] = hero.previous;
+					hero.previous = map[++Y][X];
+					map[Y][X]= hero.ch;
+					hero.previous = 'k';
+					doorToExit(map);
+				}
+				else if(map[Y+1][X] == lever && mode == 1)
 				{
 					map[Y][X] = hero.previous;
 					hero.previous = map[++Y][X];
 					map[Y][X]= 'K';
-					hero.previous = 'k';
-					doorToExit(map);
+					hero.ch= 'K';
+					hero.previous = ' ';
+				}
+				else if(map[Y+1][X] == exit)
+				{
+					hero.previous = ' ';
+					map[Y][X] = hero.previous;
+					hero.previous = map[++Y][X];
+					map[Y][X]= hero.ch;
+				}
+				else if(map[Y+1][X] == door && hero.ch == 'K') {
+					map[Y+1][X] = 'S';
 				}
 				else {
 					map[Y][X] = hero.previous;
@@ -99,13 +145,31 @@ public class Movement {
 				if(map[Y-1][X] == wall || map[Y-1][X] == door || Y-1 < 0) {
 					
 				}
-				else if(map[Y-1][X] == lever)
+				else if(map[Y-1][X] == lever && mode == 0)
 				{
 					map[Y][X] = hero.previous;
 					hero.previous = map[--Y][X];
 					map[Y][X]= hero.ch;
 					hero.previous = 'k';
 					doorToExit(map);
+				}
+				else if(map[Y-1][X] == lever && mode == 1)
+				{
+					map[Y][X] = hero.previous;
+					hero.previous = map[--Y][X];
+					map[Y][X]= 'K';
+					hero.ch= 'K';
+					hero.previous = ' ';
+				}
+				else if(map[Y-1][X] == exit)
+				{
+					hero.previous = ' ';
+					map[Y][X] = hero.previous;
+					hero.previous = map[--Y][X];
+					map[Y][X]= hero.ch;
+				}
+				else if(map[Y-1][X] == door && hero.ch == 'K') {
+					map[Y-1][X] = 'S';
 				}
 				else {
 					map[Y][X] = hero.previous;
@@ -252,5 +316,84 @@ public class Movement {
 		ogre.Y = Y;
 		return map;
 	}
-
+	public static char[][] moveClub(char[][] map,Ogre ogre,String direction) {
+		int Y = ogre.Y;
+		int X = ogre.X;
+		switch(direction) {
+			case "left":
+				if(map[Y][X-1] == wall || map[Y][X-1] == door || X-1 < 0) {
+				
+				}
+				else if(map[Y][X-1] == lever)
+				{
+					map[Y][X]= '$';
+					ogre.previous = 'k';
+					
+				}
+				else {				
+					map[Y][X] = ogre.previous;
+					ogre.previous = map[Y][--X];
+					map[Y][X]= ogre.ch;
+				}
+				break;
+			case "right":
+				if(map[Y][X+1] == wall || map[Y][X+1] == door || X+1 < 0) {
+					
+				}
+				else if(map[Y][X+1] == lever)
+				{
+					map[Y][X] = ogre.previous;
+					ogre.previous = map[Y][++X];
+					map[Y][X]= '$';
+					ogre.previous = 'k';
+					
+				}
+				else {
+					map[Y][X] = ogre.previous;
+					ogre.previous = map[Y][++X];
+					map[Y][X]= ogre.ch;
+					
+				}
+				break;
+			case "down":
+				if(map[Y+1][X] == wall || map[Y+1][X] == door || Y+1 < 0) {
+					
+				}
+				else if(map[Y+1][X] == lever)
+				{
+					map[Y][X] = ogre.previous;
+					ogre.previous = map[++Y][X];
+					map[Y][X]= '$';
+					ogre.previous = 'k';
+					
+				}
+				else {
+					map[Y][X] = ogre.previous;
+					ogre.previous = map[++Y][X];
+					map[Y][X]= ogre.ch;
+				}
+				break;
+			case "up":
+				if(map[Y-1][X] == wall || map[Y-1][X] == door || Y-1 < 0) {
+					
+				}
+				else if(map[Y-1][X] == lever)
+				{
+					map[Y][X] = ogre.previous;
+					ogre.previous = map[--Y][X];
+					map[Y][X]= '$';
+					ogre.previous = 'k';
+					
+				}
+				else {
+					map[Y][X] = ogre.previous;
+					ogre.previous = map[--Y][X];
+					map[Y][X]= ogre.ch;
+				}
+				break;
+		}
+		ogre.X = X;
+		ogre.Y = Y;
+		return map;
+	}
 }

@@ -316,9 +316,18 @@ public class Movement {
 		ogre.Y = Y;
 		return map;
 	}
-	public static char[][] moveClub(char[][] map,Ogre ogre,String direction) {
-		int Y = ogre.Y;
-		int X = ogre.X;
+public static char[][] moveClub(char[][] map,Ogre ogre,Weapon club,String direction) {
+		club.Yp = club.Y;
+		club.Xp = club.X;
+		if(map[club.Yp][club.Xp] != 'O')
+			map[club.Yp][club.Xp] = ' ';
+		if(club.previous == '*')
+			club.previous = ' ';
+		club.ch = '*';
+		club.Y = ogre.Y;
+		club.X = ogre.X;
+		int Y = club.Y;
+		int X = club.X;
 		switch(direction) {
 			case "left":
 				if(map[Y][X-1] == wall || map[Y][X-1] == door || X-1 < 0) {
@@ -326,14 +335,14 @@ public class Movement {
 				}
 				else if(map[Y][X-1] == lever)
 				{
+					club.previous = map[Y][--X];
 					map[Y][X]= '$';
-					ogre.previous = 'k';
+					club.previous = lever;
 					
 				}
 				else {				
-					map[Y][X] = ogre.previous;
-					ogre.previous = map[Y][--X];
-					map[Y][X]= ogre.ch;
+					club.previous = map[Y][--X];
+					map[Y][X]= club.ch;
 				}
 				break;
 			case "right":
@@ -342,16 +351,14 @@ public class Movement {
 				}
 				else if(map[Y][X+1] == lever)
 				{
-					map[Y][X] = ogre.previous;
-					ogre.previous = map[Y][++X];
+					club.previous = map[Y][++X];
 					map[Y][X]= '$';
-					ogre.previous = 'k';
+					club.previous = 'k';
 					
 				}
 				else {
-					map[Y][X] = ogre.previous;
-					ogre.previous = map[Y][++X];
-					map[Y][X]= ogre.ch;
+					club.previous = map[Y][++X];
+					map[Y][X]= club.ch;
 					
 				}
 				break;
@@ -361,16 +368,14 @@ public class Movement {
 				}
 				else if(map[Y+1][X] == lever)
 				{
-					map[Y][X] = ogre.previous;
-					ogre.previous = map[++Y][X];
+					club.previous = map[++Y][X];
 					map[Y][X]= '$';
-					ogre.previous = 'k';
+					club.previous = 'k';
 					
 				}
 				else {
-					map[Y][X] = ogre.previous;
-					ogre.previous = map[++Y][X];
-					map[Y][X]= ogre.ch;
+					club.previous = map[++Y][X];
+					map[Y][X]= club.ch;
 				}
 				break;
 			case "up":
@@ -379,21 +384,19 @@ public class Movement {
 				}
 				else if(map[Y-1][X] == lever)
 				{
-					map[Y][X] = ogre.previous;
-					ogre.previous = map[--Y][X];
+					club.previous = map[--Y][X];
 					map[Y][X]= '$';
-					ogre.previous = 'k';
+					club.previous = 'k';
 					
 				}
 				else {
-					map[Y][X] = ogre.previous;
-					ogre.previous = map[--Y][X];
-					map[Y][X]= ogre.ch;
+					club.previous = map[--Y][X];
+					map[Y][X]= club.ch;
 				}
 				break;
 		}
-		ogre.X = X;
-		ogre.Y = Y;
+		club.X = X;
+		club.Y = Y;
 		return map;
 	}
 }

@@ -38,6 +38,7 @@ public class DungeonKeepV1 {
 	}
 	public static boolean secondMap() {
 		boolean win=true;
+		boolean win2=true;
 		char [][]map2 = {
 				{'X','X','X','X','X','X','X','X','X'},
 				{'I',' ',' ',' ','O',' ',' ','k','X'},
@@ -52,14 +53,17 @@ public class DungeonKeepV1 {
 		Hero h= new Hero(aux[1],aux[0],'H');
 		int aux1[] = Logic.findChar(map2,'O');
 		Ogre o= new Ogre(aux1[1],aux1[0],'O');
+		int aux3[] = Logic.findChar(map2,' ');
+		Weapon c= new Weapon(aux3[1],aux3[0],' ');
 		Commons.printMap(map2);
-		while(win) 
+		while(win && win2) 
 		{
 			map2 = Movement.moveHero(map2 ,h , Commons.inputHero(),1);
 			map2 = Movement.moveOgre(map2 ,o, Logic.randomDirection());
-			map2 = Movement.moveClub(map2 ,o, Logic.randomDirection());
+			map2 = Movement.moveClub(map2 ,o, c,Logic.randomDirection());
 			Commons.printMap(map2);
 			win = Logic.checkCollison(h, o);
+			win2 = Logic.checkCollison(h, c);
 			if(h.previous == 'S') //Wall check
 			{
 				return true;
@@ -69,7 +73,7 @@ public class DungeonKeepV1 {
 		return false;
 	}
 	public static void main(String[] args) {
-		while(!firstMap());
+		//while(!firstMap());
 		while(!secondMap());
 	}
 }

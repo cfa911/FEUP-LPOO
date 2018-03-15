@@ -3,7 +3,9 @@ package test;
 import static org.junit.Assert.*;
 
 import dkeep.cli.Commons;
-import dkeep.cli.Map;
+
+import dkeep.logic.CellPosition;
+import dkeep.logic.Game;
 import dkeep.logic.*;
 
 import org.junit.Test;
@@ -11,9 +13,11 @@ import org.junit.Test;
 public class test {
 	
 	char [][] map = {
-			{},
-			{}
-					};
+			{'X','X','X','X','X'},
+			{'X','H',' ','G','X'},
+			{'I',' ',' ',' ','X'},
+			{'I','k',' ',' ','X'},
+			};
 
 	@Test
 	public void testeMoveHeroIntoToFreeCell()
@@ -30,7 +34,7 @@ public class test {
 	{
 		Map gameMap = new Map(map);
 		Game game = new Game (gameMap);
-		assertFalse(is.GameOver());
+		assertFalse(game.isGameOver());
 		game.moveHero('d');
 		assertTrue(game.isGameOver());
 		assertEquals(Game.DEFEAT, game.getEndStatus());

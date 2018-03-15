@@ -1,14 +1,21 @@
 package dkeep.logic;
 
-public class Map {
+public class Map 
+{
 	private char[][] map;
-	public Map(char[][] map) {
-	this.setMap(map);
+	
+	public Map(char[][] map) 
+	{
+		this.map = map;
 	}
-	public char[][] getMap() {
+	
+	public char[][] getMap() 
+	{
 		return map;
 	}
-	public void setMap(char[][] map) {
+	
+	public void setMap(char[][] map)
+	{
 		this.map = map;
 	}
 }

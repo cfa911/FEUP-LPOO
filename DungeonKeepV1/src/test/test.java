@@ -3,7 +3,6 @@ package test;
 import static org.junit.Assert.*;
 
 import dkeep.cli.Commons;
-
 import dkeep.logic.CellPosition;
 import dkeep.logic.Game;
 import dkeep.logic.*;
@@ -17,8 +16,9 @@ public class test {
 			{'X','H',' ','G','X'},
 			{'I',' ',' ',' ','X'},
 			{'I','k',' ',' ','X'},
+			{'X','X','X','X','X'}
 			};
-
+	
 	@Test
 	public void testeMoveHeroIntoToFreeCell()
 	{
@@ -38,6 +38,6 @@ public class test {
 		game.moveHero('d');
 		assertTrue(game.isGameOver());
 		assertEquals(Game.DEFEAT, game.getEndStatus());
-		//lalalalal
 	}
+	
 }

@@ -38,5 +38,6 @@ public class test {
 		game.moveHero('d');
 		assertTrue(game.isGameOver());
 		assertEquals(Game.DEFEAT, game.getEndStatus());
+		//lalalalal
 	}
 }

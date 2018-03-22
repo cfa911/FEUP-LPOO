@@ -18,7 +18,7 @@ public class Logic {
 			}}
 			
 		}
-		int value[] = {k,l};
+		int value[] = {k,l}; 
 		return value;
 	}
 	public static boolean checkCollison(Hero h,Charac enemy) {

@@ -2,11 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
-import dkeep.cli.Commons;
 import dkeep.cli.*;
-import dkeep.logic.CellPosition;
-import dkeep.cli.Map;
-import dkeep.logic.Game;
 import dkeep.logic.*;
 
 import org.junit.Test;
@@ -19,7 +15,7 @@ public class test {
 			{'I',' ',' ',' ','X'},
 			{'S','k',' ',' ','X'},
 			{'X','X','X','X','X'}
-			}; 
+			};
 	
 	@Test
 	public void testeMoveHeroIntoToFreeCell()
@@ -71,7 +67,6 @@ public class test {
 		//assertFalse(game.isGameOver());
 		game.moveHero('d');
 		assertFalse(Logic.checkCollison(game.hero, game.enemy));
-		//assertTrue(game.isGameOver());
 	}
 	
 }

@@ -1,4 +1,6 @@
 package dkeep.logic;
+
+
 public abstract class Charac{
 	public int X;
 	public int Y;

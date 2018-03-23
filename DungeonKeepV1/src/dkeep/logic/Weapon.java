@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+
+
 public class Weapon extends Charac{
 	public int Xp;
 	public int Yp;

@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+
+
 public class Movement {
 	public static char wall = 'X';
 	public static char door = 'I';

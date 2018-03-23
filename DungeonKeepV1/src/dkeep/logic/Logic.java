@@ -1,4 +1,6 @@
 package dkeep.logic;
+
+
 import java.util.Random;
 
 public class Logic {

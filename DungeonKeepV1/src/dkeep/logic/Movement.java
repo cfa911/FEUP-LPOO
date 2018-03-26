@@ -15,7 +15,7 @@ public class Movement {
 	public static boolean moveUp = false;
 	public static boolean moveDown = false;
 	
-	public static char[][] doorToExit(char[][] map){
+	public static char[][] enableExit(char[][] map){
 		for(int i = 0; i <= map[0].length - 1 ;i++)
 			if(map[0][i]==door)
 				map[0][i] = exit;
@@ -45,7 +45,7 @@ public class Movement {
 					hero.previous = map[Y][--X];
 					map[Y][X]= hero.ch;
 					hero.previous = 'k';
-					doorToExit(map);
+					enableExit(map);
 				}
 				else if(map[Y][X-1] == lever && mode == 1)
 				{
@@ -82,7 +82,7 @@ public class Movement {
 					hero.previous = map[Y][++X];
 					map[Y][X]= hero.ch;
 					hero.previous = 'k';
-					doorToExit(map);
+					enableExit(map);
 				}
 				else if(map[Y][X+1] == lever && mode == 1)
 				{
@@ -119,7 +119,7 @@ public class Movement {
 					hero.previous = map[++Y][X];
 					map[Y][X]= hero.ch;
 					hero.previous = 'k';
-					doorToExit(map);
+					enableExit(map);
 				}
 				else if(map[Y+1][X] == lever && mode == 1)
 				{
@@ -155,7 +155,7 @@ public class Movement {
 					hero.previous = map[--Y][X];
 					map[Y][X]= hero.ch;
 					hero.previous = 'k';
-					doorToExit(map);
+					enableExit(map);
 				}
 				else if(map[Y-1][X] == lever && mode == 1)
 				{

@@ -6,7 +6,7 @@ public class CellPosition {
 
 	private int i, j;
 	
-	public CellPosition(int i, int j) 
+	public CellPosition(int j, int i) 
 	{
 		this.i = i;
 		this.j = j;
@@ -14,19 +14,25 @@ public class CellPosition {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof CellPosition)) {
 			return false;
+		}
 		CellPosition other = (CellPosition) obj;
-		if (i != other.i)
+		if (i != other.i) {
 			return false;
-		if (j != other.j)
+		}
+		if (j != other.j) {
 			return false;
+		}
 		return true;
 	}
 
+	
 
 }

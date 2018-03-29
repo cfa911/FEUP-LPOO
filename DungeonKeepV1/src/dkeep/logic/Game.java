@@ -12,6 +12,7 @@ public class Game
 	public Map mapa, mapaIn;
 	private boolean status;
 	private int MODE; // MODE 0 DUNGEON MODE // MODE 1 KEEP MODE
+	
 	public Game(Map gameMap) 
 	{
 		this.mapaIn = gameMap;

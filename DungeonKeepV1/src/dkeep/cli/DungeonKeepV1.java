@@ -2,10 +2,17 @@ package dkeep.cli;
 
 import dkeep.cli.*;
 import dkeep.logic.*;
-public class DungeonKeepV1 {
+public class DungeonKeepV1 
+{
+	public static void main(String[] args) 
+	{
+		while(!firstMap());
+		//while(!secondMap());
+	}
+	
 	public static boolean firstMap()
 	{
-		boolean win=true;
+		boolean win = true;
 		char [][]map1 = {
 				{'X','X','X','X','X','X','X','X','X','X'},
 				{'X','H',' ',' ','I',' ','X',' ','G','X'},
@@ -72,9 +79,5 @@ public class DungeonKeepV1 {
 		}
 		System.out.print("\nYou lose. Try again!!\n\n");
 		return false;
-	}
-	public static void main(String[] args) {
-		//while(!firstMap());
-		while(!secondMap());
 	}
 }

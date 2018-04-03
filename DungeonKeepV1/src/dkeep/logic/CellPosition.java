@@ -13,23 +13,35 @@ public class CellPosition {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj)
+	{
+		if (this == obj) 
+		{
 			return true;
 		}
-		if (obj == null) {
+		
+		if (obj == null) 
+		{
 			return false;
 		}
-		if (!(obj instanceof CellPosition)) {
+		
+		if (!(obj instanceof CellPosition))
+		{
 			return false;
 		}
+		
 		CellPosition other = (CellPosition) obj;
-		if (i != other.i) {
+		
+		if (i != other.i)
+		{
 			return false;
 		}
-		if (j != other.j) {
+		
+		if (j != other.j) 
+		{
 			return false;
 		}
+		
 		return true;
 	}
 

@@ -1,7 +1,8 @@
 package dkeep.cli;
 
-public class Map {
-		public char[][] map;
+public class Map 
+{
+	public char[][] map;
 		
 		public Map(char[][] map) 
 		{
@@ -17,4 +18,6 @@ public class Map {
 		{
 			this.map = map;
 		}
+			
 	}
+

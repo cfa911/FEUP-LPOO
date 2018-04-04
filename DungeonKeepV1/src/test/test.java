@@ -19,7 +19,7 @@ public class test {
 	char [][] keep = {
 			{'X','X','X','X','X'},
 			{'X','H',' ','O','X'},
-			{'I',' ',' ','*','X'},
+			{'I',' ',' ',' ','X'},
 			{'I','k',' ',' ','X'},
 			{'X','X','X','X','X'}
 			};
@@ -94,7 +94,7 @@ public class test {
 		Map gameMap = new Map(keep);
 		Game game = new Game (gameMap);
 		game.moveHero('d');
-		assertFalse(Logic.checkCollison(game.hero, game.enemy));
+		assertFalse(Logic.checkCollison(game.hero, game.ogre));
 		assertTrue(game.isGameOver());
 	}
 	//DUNGEON TESTS
@@ -157,7 +157,7 @@ public class test {
 		Map gameMap = new Map(map);
 		Game game1 = new Game (gameMap);
 		game1.moveHero('d');
-		assertFalse(Logic.checkCollison(game1.hero, game1.enemy));
+		assertFalse(Logic.checkCollison(game1.hero, game1.guard));
 		assertTrue(game1.isGameOver());
 	}
 	
@@ -169,7 +169,7 @@ public class test {
 		game1.moveHero('s');
 		game1.moveHero('d');
 		game1.moveHero('d');
-		assertFalse(Logic.checkCollison(game1.hero, game1.enemy));
+		assertFalse(Logic.checkCollison(game1.hero, game1.guard));
 		assertTrue(game1.isGameOver());
 	}
 	
@@ -185,7 +185,7 @@ public class test {
 		game1.moveHero('d');
 		game1.moveHero('w');
 		game1.moveHero('w');
-		assertFalse(Logic.checkCollison(game1.hero, game1.enemy));
+		assertFalse(Logic.checkCollison(game1.hero, game1.guard));
 		assertTrue(game1.isGameOver());
 	}
 	
@@ -196,55 +196,19 @@ public class test {
 		Game game1 = new Game (gameMap);
 		game1.moveHero('d');
 		game1.moveHero('d');
-		assertFalse(Logic.checkCollison(game1.hero, game1.enemy));
+		assertFalse(Logic.checkCollison(game1.hero, game1.guard));
 		assertTrue(game1.isGameOver());
 	}
-	@Test
-	public void testMoveOgre()
-	{
+	
+	
+//	@Test
+//	public void testHeroCatchLever()
+//	{
 //		Map gameMap = new Map(keep);
 //		Game game = new Game (gameMap);
-//		Ogre o = new Ogre(1, 3, 'O');
-//		Weapon t = new Weapon(1,2,'s');
-//		Key k = new Key(0, 0, 'w');
+//		game.moveHero('d');
+//		game.moveHero('d');
+//		assertEquals(new CellPosition(3, 1), game.getHeroPosition());
 //		
-//		String r = Logic.randomDirection();
-//		char[][] nMap = Movement.moveOgre(keep, o, r);
-//		
-//		if(Logic.findChar(nMap,'O').equals(1) && Logic.findChar(nMap, 'O').equals(2))
-//		{
-//			assertEquals("left", r);
-//		}
-//		
-//		if(Logic.findChar(nMap,'O').equals(2) && Logic.findChar(nMap, 'O').equals(3))
-//		{
-//			assertEquals("down", r);
-//		}
-//		
-//		if(Logic.findChar(nMap,'O').equals(0) && Logic.findChar(nMap, 'O').equals(3))
-//		{
-//			assertEquals("up", r);
-//		}
-//		
-//		if(Logic.findChar(nMap,'O').equals(1) && Logic.findChar(nMap, 'O').equals(4))
-//		{
-//			assertEquals("rigth", r);
-//		}
-//		
-//		if(Logic.findChar(nMap,'O').equals(1) && Logic.findChar(nMap, 'O').equals(3))
-//		{
-//			assertEquals("null", r);
-//		}
-	}
-	
-	@Test
-	public void testHeroCatchLever()
-	{
-		Map gameMap = new Map(keep);
-		Game game = new Game (gameMap);
-		game.moveHero('d');
-		game.moveHero('d');
-		assertEquals(new CellPosition(3, 1), game.getHeroPosition());
-		
-	}
+//	}
 }

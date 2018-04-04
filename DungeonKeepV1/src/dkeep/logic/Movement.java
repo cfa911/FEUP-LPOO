@@ -35,9 +35,12 @@ public class Movement {
 	public static char[][] moveHero(char[][] map,Hero hero,String direction,int mode) {
 		int Y = hero.Y;
 		int X = hero.X;
-		switch(direction) {
+		
+		switch(direction) 
+		{
 			case "left":
-				if(map[Y][X-1] == wall  || X-1 < 0) {
+				if(map[Y][X-1] == wall  || X-1 < 0) 
+				{
 				
 				}
 				else if(map[Y][X-1] == lever && mode == 0)
@@ -63,10 +66,12 @@ public class Movement {
 					hero.previous = map[Y][--X];
 					map[Y][X]= hero.ch;
 				}
-				else if(map[Y][X-1] == door && hero.ch == 'K') {
+				else if(map[Y][X-1] == door && hero.ch == 'K')
+				{
 					map[Y][X-1] = 'S';
 				}
-				else {				
+				else 
+				{				
 					map[Y][X] = hero.previous;
 					hero.previous = map[Y][--X];
 					map[Y][X]= hero.ch;

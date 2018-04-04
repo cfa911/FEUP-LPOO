@@ -11,6 +11,18 @@ public class Commons {
 			System.out.print("\n");
 		}
 	}
+	
+	public static String printStringMap(char [][] map) {
+		String ret = "";
+		for(int i = 0; i <= (map.length-1); i++)
+		{
+			for(int j = 0;j <= (map[0].length-1);j++) {
+			ret += map[i][j];
+			}
+			ret += "\n";
+		}
+		return ret;
+	}
 	public static String inputHero() {
 		String value;
 		Scanner s = new Scanner(System.in);

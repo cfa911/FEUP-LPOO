@@ -1,9 +1,13 @@
 package dkeep.gui;
 
 import java.awt.EventQueue;
+import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+
+import dkeep.cli.Commons;
+import dkeep.logic.Game;
 
 public class Interfaces {
 
@@ -33,7 +37,24 @@ public class Interfaces {
 	public Interfaces() {
 		initialize();
 		
-		this.meuTexto.setText("OLA OLA MEU NOME É ANDRÉ");
+		char [][]map1 = {
+				{'X','X','X','X','X','X','X','X','X','X'},
+				{'X','H',' ',' ','I',' ','X',' ','G','X'},
+				{'X','X','X',' ','X','X','X',' ',' ','X'},
+				{'X',' ','I',' ','I',' ','X',' ',' ','X'},
+				{'X','X','X',' ','X','X','X',' ',' ','X'},
+				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
+				{'X','X','X',' ','X','X','X','X',' ','X'},
+				{'X',' ','I',' ','I',' ','X','k',' ','X'},
+				{'X','X','X','X','X','X','X','X','X','X'}};
+		
+		//Map level1 = new Map();
+		
+		//Game game = new Game(level1);
+		
+		meuTexto.setText("TESTAND");
+		//this.meuTexto.setText(Commons.printStringMap(Game.mapa));
 		
 	}
 

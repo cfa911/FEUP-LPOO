@@ -4,7 +4,9 @@ package dkeep.logic;
 import java.util.Random;
 
 public class Logic {
-	public static int[] findChar(char[][] map,char character){
+	
+	public static int[] findChar(char[][] map,char character)
+	{
 		int col = map[0].length;
 		int lin = map.length;
         int k = 0;

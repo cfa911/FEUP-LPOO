@@ -20,39 +20,6 @@ public class Game
 	private boolean status;
 	private int MODE; // MODE 0 DUNGEON MODE // MODE 1 KEEP MODE // MODE 2 WEAPON MODE
 	
-//	public static void main(String[] args) 
-//	{
-//		char [][]map1 = {
-//				{'X','X','X','X','X','X','X','X','X','X'},
-//				{'X','H',' ',' ','I',' ','X',' ','G','X'},
-//				{'X','X','X',' ','X','X','X',' ',' ','X'},
-//				{'X',' ','I',' ','I',' ','X',' ',' ','X'},
-//				{'X','X','X',' ','X','X','X',' ',' ','X'},
-//				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-//				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-//				{'X','X','X',' ','X','X','X','X',' ','X'},
-//				{'X',' ','I',' ','I',' ','X','k',' ','X'},
-//				{'X','X','X','X','X','X','X','X','X','X'}};
-//		
-//		char [][]map2 = {
-//				{'X','X','X','X','X','X','X','X','X'},
-//				{'I',' ',' ',' ','O',' ',' ','k','X'},
-//				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-//				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-//				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-//				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-//				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-//				{'X','H',' ',' ',' ',' ',' ',' ','X'},
-//				{'X','X','X','X','X','X','X','X','X'}};
-//		
-//		Map first = new Map(map1);
-//		Game game = new Game (first);
-//		game.loadMap(map1, game);
-//		
-//		Map second = new Map(map2);
-//		Game game2 = new Game(second);
-//		game2.loadMap(map2, game2);
-//	}
 	
 	public Game(Map gameMap) 
 	{
@@ -104,11 +71,14 @@ public class Game
 		String ret = "";
 		for(int i = 0; i <= (this.mapa.getMap().length-1); i++)
 		{
-			for(int j = 0;j <= (this.mapa.getMap()[0].length-1);j++) {
-			ret += this.mapa.getMap()[i][j] + " ";
+			for(int j = 0;j <= (this.mapa.getMap()[0].length-1);j++) 
+			{
+				ret += this.mapa.getMap()[i][j] + " ";
 			}
+			
 			ret += "\n";
 		}
+		
 		return ret;
 	}
 	
@@ -202,7 +172,7 @@ public class Game
 		{
 			if(this.isGameOver())
 			{
-				return "PERDEU O JOGO";
+				return "You lose. Try again!!";
 			}
 			
 			if(this.getMode() == 0)

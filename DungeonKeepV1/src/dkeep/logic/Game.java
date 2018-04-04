@@ -2,6 +2,10 @@ package dkeep.logic;
 
 
 
+import java.io.PrintStream;
+
+import javax.swing.text.JTextComponent;
+
 import dkeep.cli.*;
 import dkeep.logic.*;
 
@@ -95,6 +99,19 @@ public class Game
 		return new CellPosition(ogre.X, ogre.Y);
 	}
 	
+	public String printStringMaper() 
+	{
+		String ret = "";
+		for(int i = 0; i <= (this.mapa.getMap().length-1); i++)
+		{
+			for(int j = 0;j <= (this.mapa.getMap()[0].length-1);j++) {
+			ret += this.mapa.getMap()[i][j] + " ";
+			}
+			ret += "\n";
+		}
+		return ret;
+	}
+	
 	public int getMode()
 	{
 		return this.MODE;
@@ -142,15 +159,51 @@ public class Game
 		}
 	}
 	
-	public void loadMap (char [] [] mapa)
+	public String loadMap (char [] [] mapa, Object output)
 	{
-		Commons.printMap(mapa);
-
-		while(!this.isGameOver())
+		String temp = Commons.printMap(mapa, output);
+		
+		if(output instanceof PrintStream)
 		{
-			mapa = Movement.moveHero(mapa ,this.hero , Commons.inputHero(),0);
-			System.out.print("here\n");
+			while(!this.isGameOver())
+			{
+				mapa = Movement.moveHero(mapa ,this.hero , Commons.inputHero(),0);
 
+				
+				if(this.getMode() == 0)
+				{
+					mapa = Movement.moveGuard(mapa ,this.guard);
+				}
+				
+				else if(this.getMode() == 1)
+				{
+					mapa = Movement.moveOgre(mapa ,this.ogre, Logic.randomDirection());
+				}
+				
+				else
+				{
+					mapa = Movement.moveOgre(mapa ,this.ogre, Logic.randomDirection());
+					mapa = Movement.moveClub(mapa ,this.ogre, this.weapon,Logic.randomDirection());
+				}
+				
+				Commons.printMap(mapa, output);
+				
+				if(this.hero.previous == 'S') //Exit check
+				{	
+					System.out.print("\nYou win. Try this map :D!!\n\n");
+					
+				}
+			}
+			
+			System.out.print("\nYou lose. Try again!!\n\n");
+			System.exit(0);
+		}
+		else
+		{
+			if(this.isGameOver())
+			{
+				return "PERDEU O JOGO";
+			}
 			
 			if(this.getMode() == 0)
 			{
@@ -167,19 +220,9 @@ public class Game
 				mapa = Movement.moveOgre(mapa ,this.ogre, Logic.randomDirection());
 				mapa = Movement.moveClub(mapa ,this.ogre, this.weapon,Logic.randomDirection());
 			}
-			
-			Commons.printMap(mapa);
-			
-			if(this.hero.previous == 'S') //Exit check
-			{	
-				System.out.print("\nYou win. Try this map :D!!\n\n");
-				
-			}
+			return temp;
 		}
-		
-		System.out.print("\nYou lose. Try again!!\n\n");
-		System.exit(0);
-		
+		return null;
 	}
 
 	////////////////////////////////

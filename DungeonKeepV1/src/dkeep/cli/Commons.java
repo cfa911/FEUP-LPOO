@@ -1,18 +1,40 @@
 package dkeep.cli;
 import dkeep.logic.*;
+
+import java.io.PrintStream;
 import java.util.Scanner;
 public class Commons {
-	public static void printMap(char [][] map) {
-		for(int i = 0; i <= (map.length-1); i++)
+	public static String printMap(char [][] map, Object output) 
+	{
+		if(output instanceof PrintStream)
 		{
-			for(int j = 0;j <= (map[0].length-1);j++) {
-			System.out.print(map[i][j]);
+			for(int i = 0; i <= (map.length-1); i++)
+			{
+				for(int j = 0;j <= (map[0].length-1);j++) {
+				System.out.print(map[i][j]);
+				}
+				System.out.print("\n");
 			}
-			System.out.print("\n");
 		}
+		else
+		{
+			String out = "";
+			for(int i = 0; i <= (map.length-1); i++)
+			{
+				for(int j = 0;j <= (map[0].length-1);j++) 
+				{
+					out += map[i][j];
+					out += " ";
+				}
+				out += "\n";
+			}
+			return out;
+		}
+		return null;
 	}
 	
-	public static String printStringMap(char [][] map) {
+	public static String printStringMap(char [][] map) 
+	{
 		String ret = "";
 		for(int i = 0; i <= (map.length-1); i++)
 		{

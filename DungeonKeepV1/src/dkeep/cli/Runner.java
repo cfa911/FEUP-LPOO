@@ -31,11 +31,11 @@ public class Runner {
 		
 		Map first = new Map(map1);
 		Game game = new Game (first);
-		game.loadMap(map1);
+		game.loadMap(map1, System.out);
 		
 		Map second = new Map(map2);
 		Game game2 = new Game(second);
-		game2.loadMap(map2);
+		game2.loadMap(map2, System.out);
 	}
 
 }

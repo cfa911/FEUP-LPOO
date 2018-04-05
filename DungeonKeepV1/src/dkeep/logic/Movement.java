@@ -9,12 +9,7 @@ public class Movement {
 	public static char lever = 'k';
 	public static char key = 'k';
 	public static char blank = ' ';
-	
-	public static boolean moveLeft = true;
-	public static boolean moveRight = false;
-	public static boolean moveUp = false;
-	public static boolean moveDown = false;
-	
+
 	public static char[][] enableExit(char[][] map) 
 	{
 		for(int i = 0; i <= map[0].length - 1 ;i++)
@@ -193,53 +188,59 @@ public class Movement {
 		return map;
 	}
 	
+	
+	
 	public static char[][] moveGuard(char[][] map,Guard guard) {
 		int Y = guard.Y;
 		int X = guard.X;
-		if(moveLeft == true && moveRight == false)
-		{
-		    map[Y][X] = guard.previous;
-			guard.previous = map[Y][--X];
-			map[Y][X]='G';
-		    if(map[Y][X-1] == 'X' || map[Y][X-1] == 'I' || map[Y][X-1] == 'S'){
-		        moveLeft = false;
-		        moveDown = true;
-		    }
+		guard.personality = 0;
+		char[] directions = guard.getMovement();
+		int i = guard.iteration;
+		guard.personality = 0;
+		if(i == directions.length - 1 && guard.personality == 0) {
+			i = 0;
+			guard.iteration = i;
 		}
-		else if(moveRight == true && moveLeft == false)
-		{
-		    map[Y][X] = guard.previous;
-			guard.previous = map[Y][++X];
-			map[Y][X]='G';
-		    if(map[Y][X+1] == 'X' || map[Y][X+1] == 'I' || map[Y][X+1] == 'S'){
-		        moveRight = false;
-		        moveUp = true;
-		    }
-		}
-		else if(moveUp == true && moveDown == false)
-		{
-		    map[Y][X] = guard.previous;
-			guard.previous = map[--Y][X];
-			map[Y][X]='G';
-		    if(map[Y-1][X] == 'X' || map[Y-1][X] == 'I' || map[Y-1][X] == 'S'){
-		        moveLeft = true;
-		        moveUp = false;
-		    }
-		}
-		else if(moveDown == true && moveUp == false)
-		{
-		    map[Y][X] = guard.previous;
-			guard.previous = map[++Y][X];
-			map[Y][X]='G';
-		    if(map[Y][X-1] != 'X' && map[Y][X-1] != 'I' && map[Y][X-1] != 'S'){
-		        moveLeft = true;
-		        moveDown = false;
-		    }
-		    else if(map[Y+1][X] == 'X' || map[Y][X+1] == 'I' || map[Y][X+1] == 'S') {
-		        moveRight = true;
-		        moveDown = false;
-		    }
-		}
+		
+		switch(directions[i]) 
+			{
+				case 'a':
+					if(guard.personality == 0) //ROOKIE
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[Y][--X];
+						map[Y][X]= guard.ch;
+						guard.iteration++;
+					}
+					break;
+				case 'd':
+					if(guard.personality == 0)//ROOKIE
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[Y][++X];
+						map[Y][X]= guard.ch;
+						guard.iteration++;
+					}
+					break;
+				case 's':
+					if(guard.personality == 0)//ROOKIE
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[++Y][X];
+						map[Y][X]= guard.ch;
+						guard.iteration++;
+					}
+					break;
+				case 'w':
+					if(guard.personality == 0)//ROOKIE
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[--Y][X];
+						map[Y][X]= guard.ch;
+						guard.iteration++;
+					}
+					break;
+			}
 		guard.X = X;
 		guard.Y = Y;
 		return map;

@@ -19,6 +19,8 @@ public class Interfaces {
 	private JFrame frame;
 	
 	private JTextArea meuTexto;
+	
+	//private Game game;
 
 	/**
 	 * Launch the application.
@@ -62,6 +64,20 @@ public class Interfaces {
 		
 		meuTexto.setText(game.printStringMaper());
 		
+		JButton btnNewGame = new JButton("New Game");
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				Map level1 = new Map(map1);
+//				Game game = new Game(level1);
+				
+				
+				meuTexto.setText(game.printStringMaper());
+			}
+		});
+		
+		btnNewGame.setBounds(595, 693, 141, 29);
+		frame.getContentPane().add(btnNewGame);
+		
 		JButton btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -69,7 +85,7 @@ public class Interfaces {
 				meuTexto.setText(game.loadMap(map1, meuTexto));
 			}
 		});
-		btnUp.setBounds(206, 641, 141, 35);
+		btnUp.setBounds(180, 645, 141, 35);
 		frame.getContentPane().add(btnUp);
 		
 		JButton btnLeft = new JButton("Left");
@@ -101,7 +117,31 @@ public class Interfaces {
 		});
 		btnDown.setBounds(180, 755, 141, 35);
 		frame.getContentPane().add(btnDown);
-		//this.meuTexto.setText(Commons.printStringMap(Game.mapa));
+		
+		
+		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnExit.setBounds(614, 762, 106, 21);
+		frame.getContentPane().add(btnExit);
+		
+		
+//		JButton btnNewGame = new JButton("New Game");
+//		btnNewGame.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				Map level1 = new Map(map1);
+//				Game game = new Game(level1);
+//				
+//				
+//				meuTexto.setText(game.printStringMaper());
+//			}
+//		});
+//		
+//		btnNewGame.setBounds(595, 693, 141, 29);
+//		frame.getContentPane().add(btnNewGame);
 		
 	}
 

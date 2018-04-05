@@ -129,39 +129,39 @@ public class Game
 		}
 	}
 	
-	public String loadMap (char [] [] mapa, Object output)
+	public String loadMap (Object output)
 	{
-		String temp = Commons.printMap(mapa, output);
+		String temp = Commons.printMap(this.mapa.getMap(), output);
 		
 		if(output instanceof PrintStream)
 		{
 			while(!this.isGameOver())
 			{
-				mapa = Movement.moveHero(mapa ,this.hero , Commons.inputHero(),0);
+				this.mapa.setMap(Movement.moveHero(this.mapa.getMap() ,this.hero , Commons.inputHero(),0));
 
 				
 				if(this.getMode() == 0)
 				{
-					mapa = Movement.moveGuard(mapa ,this.guard);
+					this.mapa.setMap(Movement.moveGuard(this.mapa.getMap() ,this.guard));
 				}
 				
 				else if(this.getMode() == 1)
 				{
-					mapa = Movement.moveOgre(mapa ,this.ogre, Logic.randomDirection());
+					this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));
 				}
 				
 				else
 				{
-					mapa = Movement.moveOgre(mapa ,this.ogre, Logic.randomDirection());
-					mapa = Movement.moveClub(mapa ,this.ogre, this.weapon,Logic.randomDirection());
+					this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));
+					this.mapa.setMap(Movement.moveClub(this.mapa.getMap() ,this.ogre, this.weapon,Logic.randomDirection()));
 				}
 				
-				Commons.printMap(mapa, output);
+				Commons.printMap(this.mapa.getMap(), output);
 				
 				if(this.hero.previous == 'S') //Exit check
 				{	
 					System.out.print("\nYou win. Try this map :D!!\n\n");
-					
+					break;
 				}
 			}
 			
@@ -175,22 +175,32 @@ public class Game
 				return "You lose. Try again!!";
 			}
 			
+			
 			if(this.getMode() == 0)
 			{
-				mapa = Movement.moveGuard(mapa ,this.guard);
+				this.mapa.setMap(Movement.moveGuard(this.mapa.getMap() ,this.guard));
 			}
 			
 			else if(this.getMode() == 1)
 			{
-				mapa = Movement.moveOgre(mapa ,this.ogre, Logic.randomDirection());
+				this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));
 			}
 			
 			else
 			{
-				mapa = Movement.moveOgre(mapa ,this.ogre, Logic.randomDirection());
-				mapa = Movement.moveClub(mapa ,this.ogre, this.weapon,Logic.randomDirection());
+				this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));
+				this.mapa.setMap(Movement.moveClub(this.mapa.getMap() ,this.ogre, this.weapon,Logic.randomDirection()));
 			}
-			return temp;
+	
+			
+			if(this.hero.previous == 'S') //Exit check
+			{	
+				return "\nYou win. Try this map :D!!\n\n";
+				//break;
+			}
+			
+			else
+				return temp;
 		}
 		return null;
 	}

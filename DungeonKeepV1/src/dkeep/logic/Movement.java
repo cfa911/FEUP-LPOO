@@ -192,6 +192,10 @@ public class Movement {
 		Random rand = new Random();
 		int choice = rand.nextInt(6 - 1 + 1) + 1; // Random number from [1,6]
 		if(choice == 1) {
+			if(guard.mode == true)
+				guard.iteration--;
+			else if(guard.mode == false)
+				guard.iteration++;
 			guard.mode = !guard.mode;
 			
 		}
@@ -202,7 +206,7 @@ public class Movement {
 		int Y = guard.Y;
 		int X = guard.X;
 		Random rand = new Random();
-		int choice = rand.nextInt(4 - 1 + 1) + 1; // Random number from [1,4]
+		int choice = rand.nextInt(5 - 1 + 1) + 1; // Random number from [1,5]
 		if(choice == 1) {
 			guard.ch = 'g';
 			map[Y][X] = 'g';
@@ -216,6 +220,10 @@ public class Movement {
 			Random rgen = new Random();
 			int b = rgen.nextInt(4 - 1 + 1) + 1;
 			if(b == 1) {
+				if(guard.mode == true)
+					guard.iteration--;
+				else if(guard.mode == false)
+					guard.iteration++;
 				guard.mode = !guard.mode;
 
 			}
@@ -229,18 +237,23 @@ public class Movement {
 		int X = guard.X;
 		char[] directions = guard.getMovement();
 		int i = guard.iteration;
-		if(i == directions.length && guard.mode == false) {
+		if(i == directions.length && guard.mode == true) {
 			i = 0;
 			guard.iteration = i;
 		}
-		else if(guard.mode == false) {
-			guard.iteration--;
-		}
-		i=guard.iteration;
-		if(i == - 1) {
+		if(i == directions.length && guard.mode == false) {
 			i = directions.length - 1;
 			guard.iteration = i;
 		}
+		if(i == - 1 && guard.mode == false) {
+			i = directions.length - 1;
+			guard.iteration = i;
+		}
+		else if(i == - 1 && guard.mode == true) {
+			i = 0;
+			guard.iteration = i;
+		}
+			
 		switch(directions[i]) 
 			{
 				case 'a':
@@ -256,6 +269,7 @@ public class Movement {
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][++X];
 						map[Y][X]= guard.ch;
+						guard.iteration--;
 					}
 					else{
 						map[Y][X] = guard.ch;
@@ -275,6 +289,7 @@ public class Movement {
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][--X];
 						map[Y][X]= guard.ch;
+						guard.iteration--;
 					}
 					else{
 						map[Y][X] = guard.ch;
@@ -294,6 +309,7 @@ public class Movement {
 						map[Y][X] = guard.previous;
 						guard.previous = map[--Y][X];
 						map[Y][X]= guard.ch;
+						guard.iteration--;
 					}
 					else{
 						map[Y][X] = guard.ch;
@@ -313,6 +329,7 @@ public class Movement {
 						map[Y][X] = guard.previous;
 						guard.previous = map[++Y][X];
 						map[Y][X]= guard.ch;
+						guard.iteration--;
 					}
 					else {
 						map[Y][X] = guard.ch;

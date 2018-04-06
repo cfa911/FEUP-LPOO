@@ -144,7 +144,7 @@ public class Game
 				
 				if(this.getMode() == 0)
 				{
-					this.mapa.setMap(Movement.moveGuard(this.mapa.getMap() ,this.guard));
+					this.mapa.setMap(Movement.moveGuardDrunken(this.mapa.getMap() ,this.guard));
 				}
 				
 				else if(this.getMode() == 1)

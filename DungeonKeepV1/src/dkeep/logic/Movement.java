@@ -199,7 +199,7 @@ public class Movement {
 			guard.mode = !guard.mode;
 			
 		}
-		return moveGuard(map,guard);
+		return moveGuardMovement(map,guard);
 	}
 	
 	public static char[][] moveGuardDrunken(char[][] map,Guard guard) {
@@ -228,11 +228,22 @@ public class Movement {
 
 			}
 		}
-		return moveGuard(map,guard);
+		return moveGuardMovement(map,guard);
+	}
+	public static char[][] moveGuard(char[][] map,Guard guard) {
+		switch(guard.personality) {
+			case 0:
+				return moveGuardMovement(map,guard);
+			case 1:
+				return moveGuardDrunken(map,guard);
+			case 2:
+				return moveGuardSuspicious(map,guard);
+			default:
+				return map;
+				}
 	}
 	
-	
-	public static char[][] moveGuard(char[][] map,Guard guard) {
+	public static char[][] moveGuardMovement(char[][] map,Guard guard) {
 		int Y = guard.Y;
 		int X = guard.X;
 		char[] directions = guard.getMovement();

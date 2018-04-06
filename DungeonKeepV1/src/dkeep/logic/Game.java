@@ -4,6 +4,7 @@ package dkeep.logic;
 
 import java.io.PrintStream;
 
+
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
 
@@ -11,6 +12,7 @@ import dkeep.cli.*;
 import dkeep.gui.Graphic;
 import dkeep.gui.Interfaces;
 import dkeep.logic.*;
+
 
 public class Game
 {
@@ -116,7 +118,9 @@ public class Game
 		if(MODE == 0)
 		{
 			status = Logic.checkCollison(hero, guard);
-			return !Logic.checkCollison(hero, guard);
+			if(guard.ch == 'g')
+				status = true;
+			return !status;
 		}
 		
 		if(MODE == 1)
@@ -160,14 +164,14 @@ public class Game
 				
 				if(this.getMode() == 0)
 				{
-					this.mapa.setMap(Movement.moveGuard(this.mapa.getMap() ,this.guard));
+					this.mapa.setMap(Movement.moveGuardDrunken(this.mapa.getMap() ,this.guard));
 				}
 				
 				else if(this.getMode() == 1)
 				{
 					this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));
 				}
-				
+			
 				else
 				{
 					this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));
@@ -187,9 +191,7 @@ public class Game
 				System.exit(0);
 				}
 			}
-
-//			System.out.print("\nYou lose. Try again!!\n\n");
-//			System.exit(0);
+			
 		}
 		else
 		{
@@ -231,4 +233,9 @@ public class Game
 		}
 		return null;
 	}
+
+	public Object getGuardPosition() {
+		return new CellPosition(guard.X, guard.Y);
+	}
+
 }

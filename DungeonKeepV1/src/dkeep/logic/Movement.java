@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-
+import java.util.Random;
 
 public class Movement {
 	public static char wall = 'X';
@@ -9,12 +9,7 @@ public class Movement {
 	public static char lever = 'k';
 	public static char key = 'k';
 	public static char blank = ' ';
-	
-	public static boolean moveLeft = true;
-	public static boolean moveRight = false;
-	public static boolean moveUp = false;
-	public static boolean moveDown = false;
-	
+
 	public static char[][] enableExit(char[][] map) 
 	{
 		for(int i = 0; i <= map[0].length - 1 ;i++)
@@ -39,7 +34,7 @@ public class Movement {
 		switch(direction) 
 		{
 			case "left":
-				if(map[Y][X-1] == wall  || X-1 < 0) 
+				if(map[Y][X-1] == wall || (map[Y][X-1] == door && hero.ch == 'H' ) || X-1 < 0) 
 				{
 				
 				}
@@ -69,6 +64,8 @@ public class Movement {
 				else if(map[Y][X-1] == door && hero.ch == 'K')
 				{
 					map[Y][X-1] = 'S';
+					hero.ch = 'H';
+					map[Y][X] = 'H';
 				}
 				else 
 				{				
@@ -79,7 +76,7 @@ public class Movement {
 				
 				break;
 			case "right":
-				if(map[Y][X+1] == wall || map[Y][X+1] == door || X+1 < 0) {
+				if(map[Y][X+1] == wall || (map[Y][X+1] == door && hero.ch == 'H' ) || X+1 < 0) {
 					
 				}
 				else if(map[Y][X+1] == lever && mode == 0)
@@ -107,6 +104,8 @@ public class Movement {
 				}
 				else if(map[Y][X+1] == door && hero.ch == 'K') {
 					map[Y][X+1] = 'S';
+					hero.ch = 'H';
+					map[Y][X] = 'H';
 				}
 				else {
 					map[Y][X] = hero.previous;
@@ -116,7 +115,7 @@ public class Movement {
 				}
 				break;
 			case "down":
-				if(map[Y+1][X] == wall || map[Y+1][X] == door || Y+1 < 0) {
+				if(map[Y+1][X] == wall || (map[Y+1][X] == door && hero.ch == 'H' ) || Y+1 < 0) {
 					
 				}
 				else if(map[Y+1][X] == lever && mode == 0)
@@ -144,6 +143,8 @@ public class Movement {
 				}
 				else if(map[Y+1][X] == door && hero.ch == 'K') {
 					map[Y+1][X] = 'S';
+					hero.ch = 'H';
+					map[Y][X] = 'H';
 				}
 				else {
 					map[Y][X] = hero.previous;
@@ -152,7 +153,7 @@ public class Movement {
 				}
 				break;
 			case "up":
-				if(map[Y-1][X] == wall || map[Y-1][X] == door || Y-1 < 0) {
+				if(map[Y-1][X] == wall || (map[Y-1][X] == door && hero.ch == 'H' ) || Y-1 < 0) {
 					
 				}
 				else if(map[Y-1][X] == lever && mode == 0)
@@ -180,6 +181,8 @@ public class Movement {
 				}
 				else if(map[Y-1][X] == door && hero.ch == 'K') {
 					map[Y-1][X] = 'S';
+					hero.ch = 'H';
+					map[Y][X] = 'H';
 				}
 				else {
 					map[Y][X] = hero.previous;
@@ -193,53 +196,167 @@ public class Movement {
 		return map;
 	}
 	
-	public static char[][] moveGuard(char[][] map,Guard guard) {
+	public static char[][] moveGuardSuspicious(char[][] map,Guard guard) {
+		Random rand = new Random();
+		int choice = rand.nextInt(6 - 1 + 1) + 1; // Random number from [1,6]
+		if(choice == 1) {
+			if(guard.mode == true)
+				guard.iteration--;
+			else if(guard.mode == false)
+				guard.iteration++;
+			guard.mode = !guard.mode;
+			
+		}
+		return moveGuardMovement(map,guard);
+	}
+	
+	public static char[][] moveGuardDrunken(char[][] map,Guard guard) {
 		int Y = guard.Y;
 		int X = guard.X;
-		if(moveLeft == true && moveRight == false)
-		{
-		    map[Y][X] = guard.previous;
-			guard.previous = map[Y][--X];
-			map[Y][X]='G';
-		    if(map[Y][X-1] == 'X' || map[Y][X-1] == 'I' || map[Y][X-1] == 'S'){
-		        moveLeft = false;
-		        moveDown = true;
-		    }
+		Random rand = new Random();
+		int choice = rand.nextInt(5 - 1 + 1) + 1; // Random number from [1,5]
+		if(choice == 1) {
+			guard.ch = 'g';
+			map[Y][X] = 'g';
+			Random rgen = new Random();
+			int value = rgen.nextInt(3 - 1 + 1) + 1;
+			guard.wait = value;
 		}
-		else if(moveRight == true && moveLeft == false)
-		{
-		    map[Y][X] = guard.previous;
-			guard.previous = map[Y][++X];
-			map[Y][X]='G';
-		    if(map[Y][X+1] == 'X' || map[Y][X+1] == 'I' || map[Y][X+1] == 'S'){
-		        moveRight = false;
-		        moveUp = true;
-		    }
+		else if(guard.wait == 0) {
+			guard.ch = 'G';
+			map[Y][X] = 'G';
+			Random rgen = new Random();
+			int b = rgen.nextInt(4 - 1 + 1) + 1;
+			if(b == 1) {
+				if(guard.mode == true)
+					guard.iteration--;
+				else if(guard.mode == false)
+					guard.iteration++;
+				guard.mode = !guard.mode;
+
+			}
 		}
-		else if(moveUp == true && moveDown == false)
-		{
-		    map[Y][X] = guard.previous;
-			guard.previous = map[--Y][X];
-			map[Y][X]='G';
-		    if(map[Y-1][X] == 'X' || map[Y-1][X] == 'I' || map[Y-1][X] == 'S'){
-		        moveLeft = true;
-		        moveUp = false;
-		    }
+		return moveGuardMovement(map,guard);
+	}
+	public static char[][] moveGuard(char[][] map,Guard guard) {
+		switch(guard.personality) {
+			case 0:
+				return moveGuardMovement(map,guard); //ROOKIE
+			case 1:
+				return moveGuardDrunken(map,guard); //DRUNKEN
+			case 2:
+				return moveGuardSuspicious(map,guard); //SUSPICIOUS
+			default:
+				return map;
+				}
+	}
+	
+	public static char[][] moveGuardMovement(char[][] map,Guard guard) {
+		int Y = guard.Y;
+		int X = guard.X;
+		char[] directions = guard.getMovement();
+		int i = guard.iteration;
+		if(i == directions.length && guard.mode == true ) {
+			i = 0;
+			guard.iteration = i;
 		}
-		else if(moveDown == true && moveUp == false)
-		{
-		    map[Y][X] = guard.previous;
-			guard.previous = map[++Y][X];
-			map[Y][X]='G';
-		    if(map[Y][X-1] != 'X' && map[Y][X-1] != 'I' && map[Y][X-1] != 'S'){
-		        moveLeft = true;
-		        moveDown = false;
-		    }
-		    else if(map[Y+1][X] == 'X' || map[Y][X+1] == 'I' || map[Y][X+1] == 'S') {
-		        moveRight = true;
-		        moveDown = false;
-		    }
+		if(i == directions.length && guard.mode == false) {
+			i = directions.length - 1;
+			guard.iteration = i;
 		}
+		if(i == - 1 && guard.mode == false) {
+			i = directions.length - 1;
+			guard.iteration = i;
+		}
+		else if(i == - 1 && guard.mode == true) {
+			i = 0;
+			guard.iteration = i;
+		}
+			
+		switch(directions[i]) 
+			{
+				case 'a':
+					if((guard.wait == 0 && guard.mode == true) && (map[Y][X-1] != door || map[Y][X-1] != wall))//ROOKIE
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[Y][--X];
+						map[Y][X]= guard.ch;
+						guard.iteration++;
+					}
+					else if((guard.wait == 0 && guard.mode == false) && (map[Y][X+1] != door || map[Y][X+1] != wall)) //BACKWARDS
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[Y][++X];
+						map[Y][X]= guard.ch;
+						guard.iteration--;
+					}
+					else{
+						map[Y][X] = guard.ch;
+						guard.wait--;
+					}
+					break;
+				case 'd':
+					if((guard.wait == 0 && guard.mode == true)&& (map[Y][X+1] != door || map[Y][X+1] != wall))//ROOKIE
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[Y][++X];
+						map[Y][X]= guard.ch;
+						guard.iteration++;
+					}
+					else if((guard.wait == 0 && guard.mode == false) && (map[Y][X-1] != door || map[Y][X-1] != wall))//BACKWARDS
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[Y][--X];
+						map[Y][X]= guard.ch;
+						guard.iteration--;
+					}
+					else{
+						map[Y][X] = guard.ch;
+						guard.wait--;
+					}
+					break;
+				case 's':
+					if((guard.wait == 0 && guard.mode == true)&& (map[Y+1][X] != door || map[Y+1][X] != wall))//ROOKIE
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[++Y][X];
+						map[Y][X]= guard.ch;
+						guard.iteration++;
+					}
+					else if((guard.wait == 0 && guard.mode == false) && (map[Y-1][X] != door || map[Y-1][X] != wall)) //BACKWARDS
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[--Y][X];
+						map[Y][X]= guard.ch;
+						guard.iteration--;
+					}
+					else{
+						map[Y][X] = guard.ch;
+						guard.wait--;
+					}
+					break;
+				case 'w':
+					if((guard.wait == 0 && guard.mode == true) && (map[Y-1][X] != door || map[Y-1][X] != wall))//ROOKIE
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[--Y][X];
+						map[Y][X]= guard.ch;
+						guard.iteration++;
+					}
+					else if((guard.wait == 0 && guard.mode == false) && (map[Y+1][X] != door || map[Y+1][X] != wall)) //BACKWARDS
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[++Y][X];
+						map[Y][X]= guard.ch;
+						guard.iteration--;
+					}
+					else {
+						map[Y][X] = guard.ch;
+						guard.wait--;
+					}
+					break;
+			}
+
 		guard.X = X;
 		guard.Y = Y;
 		return map;

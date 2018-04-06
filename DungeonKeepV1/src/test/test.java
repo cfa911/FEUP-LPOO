@@ -97,6 +97,7 @@ public class test {
 		assertFalse(Logic.checkCollison(game.hero, game.ogre));
 		assertTrue(game.isGameOver());
 	}
+	
 	//DUNGEON TESTS
 	@Test
 	public void testeMoveHeroIntoToFreeCell()
@@ -114,6 +115,8 @@ public class test {
 		Game game = new Game (gameMap);
 		assertEquals(new CellPosition(1, 1), game.getHeroPosition());
 		game.moveHero('a');
+		assertEquals(new CellPosition(1, 1), game.getHeroPosition());
+		game.moveHero('w');
 		assertNotEquals(new CellPosition(0, 1), game.getHeroPosition());
 	}
 	@Test
@@ -151,6 +154,7 @@ public class test {
 //		assertTrue(Logic.checkCollison(game1.hero, game1.enemy));
 //		assertFalse(game1.isGameOver());
 //	}
+	
 	@Test
 	public void testHeroIsCapturedByGuard()
 	{
@@ -199,6 +203,7 @@ public class test {
 		assertFalse(Logic.checkCollison(game1.hero, game1.guard));
 		assertTrue(game1.isGameOver());
 	}
+
 	
 	
 //	@Test

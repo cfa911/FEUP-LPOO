@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-
+import java.util.Random;
 
 public class Movement {
 	public static char wall = 'X';
@@ -189,58 +189,116 @@ public class Movement {
 	}
 	
 	
+	public static char[] reverseArray(char[] array) { // Reverse Array
+		for(int i=0; i<array.length/2; i++){
+			  char temp = array[i];
+			  array[i] = array[array.length -i -1];
+			  if(temp == 'w')
+			    	temp ='s';
+			    else if(temp == 'a')
+			    	temp ='d';
+			    else if(temp == 's')
+			    	temp ='w';
+			    else if(temp == 'd')
+			    	temp ='a';
+			  array[array.length -i -1] = temp;
+			}
+		 
+		return array;
+	}
+	
+	public static char[][] moveGuardDrunken(char[][] map,Guard guard) {
+		int Y = guard.Y;
+		int X = guard.X;
+		Random rand = new Random();
+		int choice = rand.nextInt(4 - 1 + 1) + 1; // Random number from [1,4]
+		if(choice == 1) {
+			guard.ch = 'g';
+			map[Y][X] = 'g';
+			Random rgen = new Random();
+			int value = rgen.nextInt(3 - 1 + 1) + 1;
+			guard.wait = value;
+		}
+		else if(guard.wait == 0) {
+			guard.ch = 'G';
+			map[Y][X] = 'G';
+			Random rgen = new Random();
+			int value = rgen.nextInt(4 - 1 + 1) + 1;
+			if(value == 1) {
+				guard.iteration = (guard.getMovement().length) - guard.iteration;
+				guard.setMovement(guard.reverse);
+			}
+		}
+		moveGuard(map,guard);
+		return map;
+	}
+	
 	
 	public static char[][] moveGuard(char[][] map,Guard guard) {
 		int Y = guard.Y;
 		int X = guard.X;
-		guard.personality = 0;
 		char[] directions = guard.getMovement();
 		int i = guard.iteration;
-		guard.personality = 0;
-		if(i == directions.length - 1 && guard.personality == 0) {
+		if(i == directions.length) {
 			i = 0;
 			guard.iteration = i;
 		}
-		
 		switch(directions[i]) 
 			{
 				case 'a':
-					if(guard.personality == 0) //ROOKIE
+					if(guard.wait == 0) //ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][--X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
 					}
+					else{
+						map[Y][X] = guard.ch;
+						guard.wait--;
+					}
 					break;
 				case 'd':
-					if(guard.personality == 0)//ROOKIE
+					if(guard.wait == 0)//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][++X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
 					}
+					else{
+						map[Y][X] = guard.ch;
+						guard.wait--;
+					}
 					break;
 				case 's':
-					if(guard.personality == 0)//ROOKIE
+					if(guard.wait == 0)//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[++Y][X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
 					}
+					else{
+						map[Y][X] = guard.ch;
+						guard.wait--;
+					}
 					break;
 				case 'w':
-					if(guard.personality == 0)//ROOKIE
+					if(guard.wait == 0)//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[--Y][X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
 					}
+					else {
+						map[Y][X] = guard.ch;
+						guard.wait--;
+					}
 					break;
 			}
+
 		guard.X = X;
 		guard.Y = Y;
 		return map;

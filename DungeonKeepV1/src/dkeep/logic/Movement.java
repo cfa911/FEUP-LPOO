@@ -188,23 +188,14 @@ public class Movement {
 		return map;
 	}
 	
-	
-	public static char[] reverseArray(char[] array) { // Reverse Array
-		for(int i=0; i<array.length/2; i++){
-			  char temp = array[i];
-			  array[i] = array[array.length -i -1];
-			  if(temp == 'w')
-			    	temp ='s';
-			    else if(temp == 'a')
-			    	temp ='d';
-			    else if(temp == 's')
-			    	temp ='w';
-			    else if(temp == 'd')
-			    	temp ='a';
-			  array[array.length -i -1] = temp;
-			}
-		 
-		return array;
+	public static char[][] moveGuardSuspicious(char[][] map,Guard guard) {
+		Random rand = new Random();
+		int choice = rand.nextInt(6 - 1 + 1) + 1; // Random number from [1,6]
+		if(choice == 1) {
+			guard.mode = !guard.mode;
+			
+		}
+		return moveGuard(map,guard);
 	}
 	
 	public static char[][] moveGuardDrunken(char[][] map,Guard guard) {
@@ -223,14 +214,13 @@ public class Movement {
 			guard.ch = 'G';
 			map[Y][X] = 'G';
 			Random rgen = new Random();
-			int value = rgen.nextInt(4 - 1 + 1) + 1;
-			if(value == 1) {
-				guard.iteration = (guard.getMovement().length) - guard.iteration;
-				guard.setMovement(guard.reverse);
+			int b = rgen.nextInt(4 - 1 + 1) + 1;
+			if(b == 1) {
+				guard.mode = !guard.mode;
+
 			}
 		}
-		moveGuard(map,guard);
-		return map;
+		return moveGuard(map,guard);
 	}
 	
 	
@@ -239,19 +229,33 @@ public class Movement {
 		int X = guard.X;
 		char[] directions = guard.getMovement();
 		int i = guard.iteration;
-		if(i == directions.length) {
+		if(i == directions.length && guard.mode == false) {
 			i = 0;
+			guard.iteration = i;
+		}
+		else if(guard.mode == false) {
+			guard.iteration--;
+		}
+		i=guard.iteration;
+		if(i == - 1) {
+			i = directions.length - 1;
 			guard.iteration = i;
 		}
 		switch(directions[i]) 
 			{
 				case 'a':
-					if(guard.wait == 0) //ROOKIE
+					if(guard.wait == 0 && guard.mode == true) //ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][--X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
+					}
+					else if(guard.wait == 0 && guard.mode == false) //BACKWARDS
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[Y][++X];
+						map[Y][X]= guard.ch;
 					}
 					else{
 						map[Y][X] = guard.ch;
@@ -259,12 +263,18 @@ public class Movement {
 					}
 					break;
 				case 'd':
-					if(guard.wait == 0)//ROOKIE
+					if(guard.wait == 0 && guard.mode == true)//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][++X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
+					}
+					else if(guard.wait == 0 && guard.mode == false) //BACKWARDS
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[Y][--X];
+						map[Y][X]= guard.ch;
 					}
 					else{
 						map[Y][X] = guard.ch;
@@ -272,12 +282,18 @@ public class Movement {
 					}
 					break;
 				case 's':
-					if(guard.wait == 0)//ROOKIE
+					if(guard.wait == 0 && guard.mode == true)//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[++Y][X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
+					}
+					else if(guard.wait == 0 && guard.mode == false) //BACKWARDS
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[--Y][X];
+						map[Y][X]= guard.ch;
 					}
 					else{
 						map[Y][X] = guard.ch;
@@ -285,12 +301,18 @@ public class Movement {
 					}
 					break;
 				case 'w':
-					if(guard.wait == 0)//ROOKIE
+					if(guard.wait == 0 && guard.mode == true)//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[--Y][X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
+					}
+					else if(guard.wait == 0 && guard.mode == false) //BACKWARDS
+					{
+						map[Y][X] = guard.previous;
+						guard.previous = map[++Y][X];
+						map[Y][X]= guard.ch;
 					}
 					else {
 						map[Y][X] = guard.ch;

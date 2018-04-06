@@ -113,7 +113,9 @@ public class Game
 		if(MODE == 0)
 		{
 			status = Logic.checkCollison(hero, guard);
-			return !Logic.checkCollison(hero, guard);
+			if(guard.ch == 'g')
+				status = true;
+			return !status;
 		}
 		
 		if(MODE == 1)
@@ -142,7 +144,7 @@ public class Game
 				
 				if(this.getMode() == 0)
 				{
-					this.mapa.setMap(Movement.moveGuardDrunken(this.mapa.getMap() ,this.guard));
+					this.mapa.setMap(Movement.moveGuard(this.mapa.getMap() ,this.guard));
 				}
 				
 				else if(this.getMode() == 1)

@@ -36,6 +36,7 @@ public class Runner {
 		Map second = new Map(map2);
 		Game game2 = new Game(second);
 		game2.loadMap(System.out);
+		
 	}
 
 }

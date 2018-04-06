@@ -10,7 +10,7 @@ public class Commons {
 		{
 			for(int i = 0; i <= (map.length-1); i++)
 			{
-				for(int j = 0;j <= (map[0].length-1);j++) {
+				for(int j = 0;j <= (map[i].length-1);j++) {
 				System.out.print(map[i][j]);
 				}
 				System.out.print("\n");
@@ -21,7 +21,7 @@ public class Commons {
 			String out = "";
 			for(int i = 0; i <= (map.length-1); i++)
 			{
-				for(int j = 0;j <= (map[0].length-1);j++) 
+				for(int j = 0;j <= (map[i].length-1);j++) 
 				{
 					out += map[i][j];
 					out += " ";

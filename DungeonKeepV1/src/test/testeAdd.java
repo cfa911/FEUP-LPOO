@@ -11,8 +11,8 @@ public class testeAdd {
 	
 	char [][] keep = {
 			{'X','X','X','X','X'},
-			{'X','H',' ','O','X'},
-			{'I',' ',' ',' ','X'},
+			{'X','H',' ',' ','X'},
+			{'I',' ','O',' ','X'},
 			{'I','k',' ',' ','X'},
 			{'X','X','X','X','X'}
 			};
@@ -35,7 +35,7 @@ public class testeAdd {
 //		Key k = new Key(0, 0, 'w');
 		
 		String r = Logic.randomDirection();
-		//char[][] nMap = Movement.moveOgre(keep, o, r);
+
 		
 		if(game.getOgrePosition().equals(1) && game.getOgrePosition().equals(2))
 		{

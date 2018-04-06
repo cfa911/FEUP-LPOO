@@ -4,9 +4,12 @@ package dkeep.logic;
 
 import java.io.PrintStream;
 
+import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
 
 import dkeep.cli.*;
+import dkeep.gui.Graphic;
+import dkeep.gui.Interfaces;
 import dkeep.logic.*;
 
 public class Game
@@ -129,12 +132,27 @@ public class Game
 		}
 	}
 	
-	public String loadMap (Object output)
+	public boolean isWon()
 	{
-		String temp = Commons.printMap(this.mapa.getMap(), output);
+		if(MODE == 0)
+		{
+			if(this.hero.previous == 'S')
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public char[][] loadMap (Object output)
+	{
+		char[][] temp = this.mapa.getMap();
+		
 		
 		if(output instanceof PrintStream)
 		{
+			Commons.printMap(this.mapa.getMap(), output);
+			
 			while(!this.isGameOver())
 			{
 				this.mapa.setMap(Movement.moveHero(this.mapa.getMap() ,this.hero , Commons.inputHero(),0));
@@ -163,17 +181,25 @@ public class Game
 					System.out.print("\nYou win. Try this map :D!!\n\n");
 					break;
 				}
+				else if (this.isGameOver())
+				{
+				System.out.print("\nYou lose. Try again!!\n\n");
+				System.exit(0);
+				}
 			}
-			
-			System.out.print("\nYou lose. Try again!!\n\n");
-			System.exit(0);
+
+//			System.out.print("\nYou lose. Try again!!\n\n");
+//			System.exit(0);
 		}
 		else
 		{
-			if(this.isGameOver())
+			/*if(this.isGameOver())
 			{
-				return "You lose. Try again!!";
-			}
+				return null;
+				//JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
+				//System.exit(0);
+				//Interfaces.btnLeft();
+			}*/
 			
 			
 			if(this.getMode() == 0)
@@ -194,8 +220,9 @@ public class Game
 	
 			
 			if(this.hero.previous == 'S') //Exit check
-			{	
-				return "\nYou win. Try this map :D!!\n\n";
+			{
+				return new char[][] {{'n'}};
+				//return "\nYou win. Try this map :D!!\n\n";
 				//break;
 			}
 			
@@ -204,90 +231,4 @@ public class Game
 		}
 		return null;
 	}
-
-	////////////////////////////////
-	
-//	public static boolean firstMap()
-//	{
-//		boolean win = true;
-//		
-//		char [][]map1 = {
-//				{'X','X','X','X','X','X','X','X','X','X'},
-//				{'X','H',' ',' ','I',' ','X',' ','G','X'},
-//				{'X','X','X',' ','X','X','X',' ',' ','X'},
-//				{'X',' ','I',' ','I',' ','X',' ',' ','X'},
-//				{'X','X','X',' ','X','X','X',' ',' ','X'},
-//				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-//				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-//				{'X','X','X',' ','X','X','X','X',' ','X'},
-//				{'X',' ','I',' ','I',' ','X','k',' ','X'},
-//				{'X','X','X','X','X','X','X','X','X','X'}};
-//		
-//		int aux[] = Logic.findChar(map1,'H');
-//		Hero h= new Hero(aux[1],aux[0],'H');
-//		int aux1[] = Logic.findChar(map1,'G');
-//		Guard g= new Guard(aux1[1],aux1[0],'G');
-//		Commons.printMap(map1);
-//		
-//		while(win) 
-//		{
-//			map1 = Movement.moveHero(map1 ,h , Commons.inputHero(),0);
-//			map1 = Movement.moveGuard(map1 ,g);
-//			Commons.printMap(map1);
-//			win = Logic.checkCollison(h, g); //se encontrar 
-//			
-//			if(h.previous == 'S') //Exit check
-//			{	
-//				System.out.print("\nYou win. Try this map :D!!\n\n");
-//				return true;
-//			}
-//		}
-//		
-//		System.out.print("\nYou lose. Try again!!\n\n");
-//		return false;
-//	}
-//	
-//	
-//	public static boolean secondMap()
-//	{
-////		boolean win=true;
-////		boolean win2=true;
-////		
-////		char [][]map2 = {
-////				{'X','X','X','X','X','X','X','X','X'},
-////				{'I',' ',' ',' ','O',' ',' ','k','X'},
-////				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-////				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-////				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-////				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-////				{'X',' ',' ',' ',' ',' ',' ',' ','X'},
-////				{'X','H',' ',' ',' ',' ',' ',' ','X'},
-////				{'X','X','X','X','X','X','X','X','X'}};
-////		
-////		int aux[] = Logic.findChar(map2,'H');
-////		Hero h= new Hero(aux[1],aux[0],'H');
-////		int aux1[] = Logic.findChar(map2,'O');
-////		Ogre o= new Ogre(aux1[1],aux1[0],'O');
-////		int aux3[] = Logic.findChar(map2,' ');
-////		Weapon c= new Weapon(aux3[1],aux3[0],' ');
-////		Commons.printMap(map2);
-////		
-////		while(win && win2) 
-////		{
-////			map2 = Movement.moveHero(map2 ,h , Commons.inputHero(),1);
-////			map2 = Movement.moveOgre(map2 ,o, Logic.randomDirection());
-////			map2 = Movement.moveClub(map2 ,o, c,Logic.randomDirection());
-////			Commons.printMap(map2);
-////			win = Logic.checkCollison(h, o);
-////			win2 = Logic.checkCollison(h, c);
-////			
-////			if(h.previous == 'S') //Wall check
-////			{
-////				return true;
-////			}
-////		}
-////		
-////		System.out.print("\nYou lose. Try again!!\n\n");
-//		return false;
-//	}
 }

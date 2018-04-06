@@ -177,22 +177,22 @@ public class test {
 		assertTrue(game1.isGameOver());
 	}
 	
-	@Test
-	public void testHeroIsCapturedByGuardv3()
-	{
-		Map gameMap = new Map(map1);
-		Game game1 = new Game (gameMap);
-		game1.moveHero('s');
-		game1.moveHero('s');
-		game1.moveHero('d');
-		game1.moveHero('d');
-		game1.moveHero('d');
-		game1.moveHero('w');
-		game1.moveHero('w');
-		assertFalse(Logic.checkCollison(game1.hero, game1.guard));
-		assertTrue(game1.isGameOver());
-	}
-	
+//	@Test
+//	public void testHeroIsCapturedByGuardv3()
+//	{
+//		Map gameMap = new Map(map1);
+//		Game game1 = new Game (gameMap);
+//		game1.moveHero('s');
+//		game1.moveHero('s');
+//		game1.moveHero('d');
+//		game1.moveHero('d');
+//		game1.moveHero('d');
+//		game1.moveHero('w');
+//		game1.moveHero('w');
+//		assertFalse(Logic.checkCollison(game1.hero, game1.guard));
+//		assertTrue(game1.isGameOver());
+//	}
+//	
 	@Test
 	public void testHeroIsCapturedByGuardv4()
 	{

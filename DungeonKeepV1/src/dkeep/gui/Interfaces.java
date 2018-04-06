@@ -208,6 +208,7 @@ public class Interfaces {
 
 		//JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.

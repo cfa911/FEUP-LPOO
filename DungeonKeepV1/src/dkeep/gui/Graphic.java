@@ -113,13 +113,6 @@ public class Graphic extends JPanel implements KeyListener{
 		return this.key;
 	}
 
-	public Image resizeImage(BufferedImage old)
-	{
-		Image novo = old;
-		Image newImage = novo.getScaledInstance(100, 100, 0);
-		return newImage;
-	}
-
 	public void printMap(char[][] map) 
 	{
 		this.map = map;
@@ -137,43 +130,6 @@ public class Graphic extends JPanel implements KeyListener{
 		
 		repaint();
 		
-//		Graphics g = null;
-//		super.paintComponent(g);
-//
-//		Image Menudois = Menu.getScaledInstance(805, 633, 0);
-//		
-//		for(int i = 0; i < map.length(); i++)
-//		{	
-//			switch(map.charAt(i))
-//			{
-//			case 'X':
-//				g.drawImage(Menudois, 0, 0, null);
-//				break;
-//			case 'H':
-//				g.drawImage(Menudois, 0, 0, null);
-//				break;
-//			case 'O':
-//				g.drawImage(Menudois, 0, 0, null);
-//				break;
-//			case '*':
-//				g.drawImage(Menudois, 0, 0, null);
-//				break;
-//			case 'K':
-//				g.drawImage(Menudois, 0, 0, null);
-//				break;
-//			case 'S':
-//				g.drawImage(Menudois, 0, 0, null);
-//				break;
-//			case 'I':
-//				g.drawImage(Menudois, 0, 0, null);
-//				break;
-//			default:
-//				g.drawImage(Menudois, 0, 0, null);
-//				break;
-//			}
-//		}
-//
-//		repaint();
 	}
 
 
@@ -188,8 +144,6 @@ public class Graphic extends JPanel implements KeyListener{
 		{
 			for(int j = 0; j < map[i].length; j++)
 			{
-//				y = (i / 10) * 50;
-//				x = i*50 - (10 * y);
 				x = j*70;
 				y = i*70;
 				switch(map[i][j])
@@ -226,44 +180,6 @@ public class Graphic extends JPanel implements KeyListener{
 				}
 			}
 		}
-		
-//		for(int i = 0; i < map.length(); i++)
-//		{	
-//			y = (i / 10) * 50;
-//			x = i*50 - (10 * y);
-//			
-//			switch(map.charAt(i))
-//			{
-//			case 'X':
-//				g.drawImage(grounds, x, y, null);
-//				break;
-//			case 'H':
-//				g.drawImage(heros, x, y, null);
-//				break;
-//			case 'G':
-//				g.drawImage(guards, x, y, null);
-//				break;
-//			case 'O':
-//				g.drawImage(ogres, x, y, null);
-//				break;
-//			case '*':
-//				g.drawImage(weapons, x, y, null);
-//				break;
-//			case 'K':
-//				g.drawImage(keys, x, y, null);
-//				break;
-//			case 'S':
-//				g.drawImage(doorsOpens, x, y, null);
-//				break;
-//			case 'I':
-//				g.drawImage(doors, x, y, null); 
-//				break;
-//			default:
-//				g.drawImage(grounds, x, y, null); //
-//				break;
-//			}
-//		}
-//		//g.drawImage(Menudois, 0, 0, null);
 	}
 	
 	public void directionHandler(char dir) {

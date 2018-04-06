@@ -264,7 +264,7 @@ public class Movement {
 			i = directions.length - 1;
 			guard.iteration = i;
 		}
-		if(i == - 1 && guard.mode == false) {
+		else if(i == - 1 && guard.mode == false) {
 			i = directions.length - 1;
 			guard.iteration = i;
 		}

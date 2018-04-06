@@ -24,21 +24,56 @@ public class testeAdd {
 			{'I','k',' ',' ','X'},
 			{'X','X','X','X','X'}
 			};
+	
+	char [][] keep1 = {
+			{'X','X','X','X','X'},
+			{'X','H',' ',' ','X'},
+			{'I',' ','O','*','X'},
+			{'I','k',' ',' ','X'},
+			{'X','X','X','X','X'}
+			};
 
+//	@Test(timeout=1000)
+//	public void testMoveOgreIntoWall()
+//	{
+//		Map gameMap = new Map(keep);
+//		Game game = new Game (gameMap);
+//		//String r = Logic.randomDirection();
+//		Movement.moveOgre(game.mapa.map, game.ogre, "right");
+//		Movement.moveOgre(game.mapa.map, game.ogre, "right");
+//		assertEquals(new CellPosition(3, 2), game.getOgrePosition());
+//		
+//	}
+	
+	@Test(timeout=1000)
+	public void testMoveWeapon()
+	{
+		Map gameMap = new Map(keep1);
+		Game game = new Game (gameMap);
+		String r = Logic.randomDirection();
+		Movement.moveClub(game.mapa.map, game.ogre, game.weapon, r);
+		if(game.weapon.Y == 2 && game.weapon.X == 1)
+		{
+			assertEquals("left", r);
+		}
+		else if(game.weapon.Y == 1 && game.weapon.X == 2)
+		{
+			assertEquals("up", r);
+		}
+		else if(game.weapon.Y == 1 && game.weapon.X == 3)
+		{
+			assertEquals("down", r);
+		}
+	}
+	
 	@Test(timeout=1000)
 	public void testMoveOgre()
 	{
 		Map gameMap = new Map(keep);
 		Game game = new Game (gameMap);
 		String r = Logic.randomDirection();
-<<<<<<< HEAD
-
-		
-		if(game.getOgrePosition().equals(1) && game.getOgrePosition().equals(2))
-=======
 		Movement.moveOgre(game.mapa.map, game.ogre, r);
 		if(game.ogre.Y == 2 && game.ogre.X == 1)
->>>>>>> 0ff4945afa6297e90610007df53c10678cf5548b
 		{
 			assertEquals("left", r);			
 		}
@@ -108,15 +143,12 @@ public class testeAdd {
 		game.guard.setPersonality(1);
 		assertEquals(game.guard.personality,1);
 		Movement.moveGuard(game.mapa.map, game.guard);
-		if(game.guard.mode == true && game.guard.wait == 0) {
-
+		if(game.guard.mode == true && game.guard.wait == 0)
+		{
 			assertEquals(new CellPosition(2, 1), game.getGuardPosition());
 		}
 		else if(game.guard.mode == false && game.guard.wait == 0) {
 			assertEquals(new CellPosition(3, 2), game.getGuardPosition());
-		}
-		else if(game.guard.wait != 0) {
-			assertEquals(new CellPosition(2, 2), game.getGuardPosition());
 		}
 	}
 	

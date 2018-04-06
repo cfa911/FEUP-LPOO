@@ -164,14 +164,14 @@ public class Game
 				
 				if(this.getMode() == 0)
 				{
-					this.mapa.setMap(Movement.moveGuardDrunken(this.mapa.getMap() ,this.guard));
+					this.mapa.setMap(Movement.moveGuard(this.mapa.getMap() ,this.guard));
 				}
 				
 				else if(this.getMode() == 1)
 				{
 					this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));
 				}
-			
+	
 				else
 				{
 					this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));

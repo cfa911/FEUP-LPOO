@@ -34,7 +34,7 @@ public class Movement {
 		switch(direction) 
 		{
 			case "left":
-				if(map[Y][X-1] == wall  || X-1 < 0) 
+				if(map[Y][X-1] == wall || (map[Y][X-1] == door && hero.ch == 'H' ) || X-1 < 0) 
 				{
 				
 				}
@@ -64,6 +64,8 @@ public class Movement {
 				else if(map[Y][X-1] == door && hero.ch == 'K')
 				{
 					map[Y][X-1] = 'S';
+					hero.ch = 'H';
+					map[Y][X] = 'H';
 				}
 				else 
 				{				
@@ -74,7 +76,7 @@ public class Movement {
 				
 				break;
 			case "right":
-				if(map[Y][X+1] == wall || map[Y][X+1] == door || X+1 < 0) {
+				if(map[Y][X+1] == wall || (map[Y][X+1] == door && hero.ch == 'H' ) || X+1 < 0) {
 					
 				}
 				else if(map[Y][X+1] == lever && mode == 0)
@@ -102,6 +104,8 @@ public class Movement {
 				}
 				else if(map[Y][X+1] == door && hero.ch == 'K') {
 					map[Y][X+1] = 'S';
+					hero.ch = 'H';
+					map[Y][X] = 'H';
 				}
 				else {
 					map[Y][X] = hero.previous;
@@ -111,7 +115,7 @@ public class Movement {
 				}
 				break;
 			case "down":
-				if(map[Y+1][X] == wall || map[Y+1][X] == door || Y+1 < 0) {
+				if(map[Y+1][X] == wall || (map[Y+1][X] == door && hero.ch == 'H' ) || Y+1 < 0) {
 					
 				}
 				else if(map[Y+1][X] == lever && mode == 0)
@@ -139,6 +143,8 @@ public class Movement {
 				}
 				else if(map[Y+1][X] == door && hero.ch == 'K') {
 					map[Y+1][X] = 'S';
+					hero.ch = 'H';
+					map[Y][X] = 'H';
 				}
 				else {
 					map[Y][X] = hero.previous;
@@ -147,7 +153,7 @@ public class Movement {
 				}
 				break;
 			case "up":
-				if(map[Y-1][X] == wall || map[Y-1][X] == door || Y-1 < 0) {
+				if(map[Y-1][X] == wall || (map[Y-1][X] == door && hero.ch == 'H' ) || Y-1 < 0) {
 					
 				}
 				else if(map[Y-1][X] == lever && mode == 0)
@@ -175,6 +181,8 @@ public class Movement {
 				}
 				else if(map[Y-1][X] == door && hero.ch == 'K') {
 					map[Y-1][X] = 'S';
+					hero.ch = 'H';
+					map[Y][X] = 'H';
 				}
 				else {
 					map[Y][X] = hero.previous;
@@ -233,11 +241,11 @@ public class Movement {
 	public static char[][] moveGuard(char[][] map,Guard guard) {
 		switch(guard.personality) {
 			case 0:
-				return moveGuardMovement(map,guard);
+				return moveGuardMovement(map,guard); //ROOKIE
 			case 1:
-				return moveGuardDrunken(map,guard);
+				return moveGuardDrunken(map,guard); //DRUNKEN
 			case 2:
-				return moveGuardSuspicious(map,guard);
+				return moveGuardSuspicious(map,guard); //SUSPICIOUS
 			default:
 				return map;
 				}
@@ -248,7 +256,7 @@ public class Movement {
 		int X = guard.X;
 		char[] directions = guard.getMovement();
 		int i = guard.iteration;
-		if(i == directions.length && guard.mode == true) {
+		if(i == directions.length && guard.mode == true ) {
 			i = 0;
 			guard.iteration = i;
 		}
@@ -268,14 +276,14 @@ public class Movement {
 		switch(directions[i]) 
 			{
 				case 'a':
-					if(guard.wait == 0 && guard.mode == true) //ROOKIE
+					if((guard.wait == 0 && guard.mode == true) && (map[Y][X-1] != door || map[Y][X-1] != wall))//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][--X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
 					}
-					else if(guard.wait == 0 && guard.mode == false) //BACKWARDS
+					else if((guard.wait == 0 && guard.mode == false) && (map[Y][X+1] != door || map[Y][X+1] != wall)) //BACKWARDS
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][++X];
@@ -288,14 +296,14 @@ public class Movement {
 					}
 					break;
 				case 'd':
-					if(guard.wait == 0 && guard.mode == true)//ROOKIE
+					if((guard.wait == 0 && guard.mode == true)&& (map[Y][X+1] != door || map[Y][X+1] != wall))//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][++X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
 					}
-					else if(guard.wait == 0 && guard.mode == false) //BACKWARDS
+					else if((guard.wait == 0 && guard.mode == false) && (map[Y][X-1] != door || map[Y][X-1] != wall))//BACKWARDS
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[Y][--X];
@@ -308,14 +316,14 @@ public class Movement {
 					}
 					break;
 				case 's':
-					if(guard.wait == 0 && guard.mode == true)//ROOKIE
+					if((guard.wait == 0 && guard.mode == true)&& (map[Y+1][X] != door || map[Y+1][X] != wall))//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[++Y][X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
 					}
-					else if(guard.wait == 0 && guard.mode == false) //BACKWARDS
+					else if((guard.wait == 0 && guard.mode == false) && (map[Y-1][X] != door || map[Y-1][X] != wall)) //BACKWARDS
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[--Y][X];
@@ -328,14 +336,14 @@ public class Movement {
 					}
 					break;
 				case 'w':
-					if(guard.wait == 0 && guard.mode == true)//ROOKIE
+					if((guard.wait == 0 && guard.mode == true) && (map[Y-1][X] != door || map[Y-1][X] != wall))//ROOKIE
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[--Y][X];
 						map[Y][X]= guard.ch;
 						guard.iteration++;
 					}
-					else if(guard.wait == 0 && guard.mode == false) //BACKWARDS
+					else if((guard.wait == 0 && guard.mode == false) && (map[Y+1][X] != door || map[Y+1][X] != wall)) //BACKWARDS
 					{
 						map[Y][X] = guard.previous;
 						guard.previous = map[++Y][X];

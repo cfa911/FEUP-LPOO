@@ -4,10 +4,7 @@ package dkeep.logic;
 
 import java.io.PrintStream;
 
-import javax.swing.text.JTextComponent;
-
 import dkeep.cli.*;
-import dkeep.logic.*;
 
 public class Game
 {
@@ -131,6 +128,7 @@ public class Game
 		}
 	}
 	
+	
 	public String loadMap (Object output)
 	{
 		String temp = Commons.printMap(this.mapa.getMap(), output);
@@ -151,7 +149,7 @@ public class Game
 				{
 					this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));
 				}
-				
+			
 				else
 				{
 					this.mapa.setMap(Movement.moveOgre(this.mapa.getMap() ,this.ogre, Logic.randomDirection()));
@@ -165,10 +163,14 @@ public class Game
 					System.out.print("\nYou win. Try this map :D!!\n\n");
 					break;
 				}
+				
+				else if(this.isGameOver())
+				{
+					System.out.print("\nYou lose. Try again!!\n\n");
+					System.exit(0);
+				}
 			}
 			
-			System.out.print("\nYou lose. Try again!!\n\n");
-			System.exit(0);
 		}
 		else
 		{
@@ -205,6 +207,10 @@ public class Game
 				return temp;
 		}
 		return null;
+	}
+
+	public Object getGuardPosition() {
+		return new CellPosition(guard.X, guard.Y);
 	}
 
 	////////////////////////////////

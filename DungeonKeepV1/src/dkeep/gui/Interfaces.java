@@ -23,6 +23,7 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
 
 public class Interfaces {
 
@@ -37,6 +38,7 @@ public class Interfaces {
 
 	static Game game;
 	int levelIndex = 0;
+	String personali;
 
 	/**
 	 * Launch the application.
@@ -105,6 +107,19 @@ public class Interfaces {
 				panel.requestFocusInWindow();
 				canPrint = true;
 				temp = meusMapas;
+				
+				switch(personali)
+				{
+				case "Rookie":
+					game.guard.setPersonality(0);
+					break;
+				case "Drunken":
+					game.guard.setPersonality(1);
+					break;
+				case "Suspicious":
+					game.guard.setPersonality(2);
+					break;
+				}
 				panel.printMap(temp[levelIndex]);
 				//meuTexto.setText(game.loadMap(meuTexto));
 
@@ -205,6 +220,14 @@ public class Interfaces {
 
 		panel.setMap(temp[levelIndex]);
 		frame.getContentPane().add(panel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(721, 60, 152, 29);
+		comboBox.addItem("Rookie");
+		comboBox.addItem("Drunken");
+		comboBox.addItem("Suspicious");
+		frame.getContentPane().add(comboBox);
+		personali = (String)comboBox.getSelectedItem();
 
 		//JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
 	}
@@ -239,5 +262,4 @@ public class Interfaces {
 			panel.printMap(temp[levelIndex]);
 		}
 	}
-
 }

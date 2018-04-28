@@ -159,6 +159,9 @@ public class Graphic extends JPanel implements KeyListener{
 				case 'G':
 					g.drawImage(guards, x, y, null);
 					break;
+				case 'g':
+					g.drawImage(guards, x, y, null);
+					break;
 				case 'O':
 					g.drawImage(ogres, x, y, null);
 					break;
